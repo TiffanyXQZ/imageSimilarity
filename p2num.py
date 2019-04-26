@@ -107,26 +107,30 @@ def main():
 #   randomly generate 3d points sets
 #############################################################################
 
-    # a1 = points3d_gen(1000)
-    # a2 = points3d_gen(10)
-    #
-    # ap1 = [pairing_3d(p, 1, 2, 4) for p in a1]
-    # ap2 = [pairing_3d(p, 1, 2, 4) for p in a2]
-    #
-    # a, b = mh.permuations()
-    # c = 0
-    # for x, y in zip(a, b):
-    #     ma1 = mh.minhash(ap1, x, y)
-    #     ma2 = mh.minhash(ap2, x, y)
-    #
-    #     print("MinHash signature for ap1 is calculated:\n", ap1)
-    #     print("MinHash signature for ap2 is calculated:\n", ap2)
-    #
-    #     if ma1 == ma2:
-    #         c = c + 1
-    #
-    # jaca = c/ mh.num_perm
-    # print("Jaccard similarity for num1s and num2s is calculated:\n", jaca)
+    a1 = points3d_gen(100)
+    a2 = points3d_gen(100)
+    print(a1)
+    print(a2)
+
+    ap1 = [pairing_3d(p, 1, 2, 4) for p in a1]
+    ap2 = [pairing_3d(p, 1, 2, 4) for p in a2]
+
+    a, b = mh.permuations()
+    c = 0
+    print(ap1)
+    print(ap2)
+    for x, y in zip(a, b):
+        ma1 = mh.minhash(ap1, x, y)
+        ma2 = mh.minhash(ap2, x, y)
+
+        print("MinHash signature for ap1 is calculated:\n", ma1)
+        print("MinHash signature for ap2 is calculated:\n", ma2)
+
+        if ma1 == ma2:
+            c = c + 1
+
+    jaca = c/ mh.num_perm
+    print("Jaccard similarity for num1s and num2s is calculated:\n", jaca)
 
 
 
