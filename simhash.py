@@ -5,16 +5,17 @@ import minhash_2 as mh
 
 def points3d_gen(num):
     # arr = np.random.uniform(size=num*3)
-    arr = np.random.randint(low=0, high=255, size=num * 3)
+    arr = np.random.randint(low=0, high=1000, size=num * 3)
     arr1 = arr.reshape((num, 3))
     return arr1.tolist()
 
 def reference_gen(num, k):
     # arr = np.random.uniform(size=num*3)
-    arr = np.random.uniform(low=-1, high=1, size=num*k )
+    r = np.random.RandomState(1234)
+    arr = r.uniform(low=-1, high=1, size=num*k )
     arr1 = arr.reshape((k, num))
     return arr1.tolist()
-s
+
 #This step is calculating SimHash
 def simhash(t, h):
     sum = 0
@@ -54,6 +55,7 @@ def main():
 #Calculate SimHash
     k = 5
     hs = reference_gen(len(pn1), k)
+    print("reference:", hs)
     for h in hs:
         print(h)
         print(simhash(pn1,h))
