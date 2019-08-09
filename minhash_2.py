@@ -1,4 +1,4 @@
-_prime = 2147483647  # 2147483647 # this is the prime number bigger than _max_hash
+_prime = 10007  # 2147483647 # this is the prime number bigger than _max_hash
 _max_hash = (1 << 64) - 1
 
 num_perm = 20  # the length of the signature

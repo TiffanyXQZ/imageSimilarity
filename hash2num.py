@@ -3,6 +3,7 @@ import minhash_2 as mh
 import numpy as np
 from hashfunc import sha1_hash32
 
+
 def p2num_2d(p_2d, w, h):
     p = list([int(p_2d[0] / w), int(p_2d[1] / h)])
     s = f's{p[0]}s{p[1]}'
@@ -11,11 +12,18 @@ def p2num_2d(p_2d, w, h):
 
 
 def p2num_3d(p_3d, w, h, l):
-    p = list([int(p_3d[0] / w), int(p_3d[1] / h), int(p_3d[2] / l)])
-    s = f's{p[0]}s{p[1]}s{p[2]}'
+    r, g, b = int(p_3d[0] / w), int(p_3d[1] / h), int(p_3d[2] / l)
+    x = int(255 / w)
+    s = r + g * x + b * x ^ 2
 
-    return sha1_hash32(s)
+    return s
 
+
+# def p2num_3d(p_3d, w, h, l):
+#     p = list([int(p_3d[0] / w), int(p_3d[1] / h), int(p_3d[2] / l)])
+#     s = f's{p[0]}s{p[1]}s{p[2]}'
+
+#     return sha1_hash32(s)
 
 
 def p2num_2d_shift(point_2d, w, h, shift):
@@ -25,13 +33,13 @@ def p2num_2d_shift(point_2d, w, h, shift):
     s = f's{p[0]}s{p[1]}'
     return sha1_hash32(s)
 
+
 def p2num_3d_shift(point_3d, w, h, l, shift):
     p = list([int((point_3d[0] - shift * w) / w),
               int((point_3d[1] - shift * h) / h),
               int((point_3d[2] - shift * l) / l)])
     s = f's{p[0]}s{p[1]}s{p[2]}'
     return sha1_hash32(s)
-
 
 
 def points3d_gen(num):
@@ -43,19 +51,17 @@ def points3d_gen(num):
 
 def main():
     p1 = ([1, 2], [3, 4], [5, 6])
-    num1 = [p2num_2d(p, 1 , 1) for p in p1]
+    num1 = [p2num_2d(p, 1, 1) for p in p1]
     print(num1)
     p2 = ([9, 10, 11], [12, 13, 14], [1.5, 2, 4], [3, 4.6, 6], [5.3, 6, 8])
-    num2 = [p2num_3d(p, 1 , 1, 1) for p in p2]
+    num2 = [p2num_3d(p, 1, 1, 1) for p in p2]
     print(num2)
-
 
     shift = 0.5
     num1_s = [p2num_2d_shift(p, 1, 1, 0.5) for p in p1]
     print(num1)
     num2_s = [p2num_3d_shift(p, 1, 1, 1, 0.5) for p in p2]
     print(num2_s)
-
 
     print(f'points p1 is hashed to number of:\n {num1}')
     print(f'points p2 is hashed to number of:\n {num2}')
@@ -93,7 +99,7 @@ def main():
         if m1s == m2s:
             cs = cs + 1
 
-    jacs = cs/ mh.num_perm
+    jacs = cs / mh.num_perm
     print("Jaccard similarity for num1s and num2s is calculated:\n", jacs)
 
 #############################################################################
@@ -122,11 +128,8 @@ def main():
         if ma1 == ma2:
             c = c + 1
 
-    jaca = c/ mh.num_perm
+    jaca = c / mh.num_perm
     print("Jaccard similarity for num1s and num2s is calculated:\n", jaca)
-
-
-
 
 
 if __name__ == '__main__':
