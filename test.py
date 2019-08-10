@@ -18,7 +18,8 @@ images = {'original': '11.jpg',
           }
 
 
-tim = {'reading_data': -1, 'coverting_image': -1, 'minhashing': -1, 'simhashing': -1}
+tim = {'reading_data': -1, 'coverting_image': -1, 'minhashing_table': -1,
+       'jacard_similarity': -1, 'simhashing_table': -1, 'simhashing_similarity': -1}
 
 
 ######################################################
@@ -78,8 +79,12 @@ a, b = permuations()
 for x, y in zip(a, b):
     for im in ims_single:
         min_hashs[im].append(minhash(list(ims_single[im].flatten()), x, y))
+tim['minhashing_table'] = time.time() - t1
+
+t1 = time.time()
+for i in range(0, len(a)):
     for im in ims_single:
-        if min_hashs[im] == min_hashs['original']:
+        if min_hashs[im][i] == min_hashs['original'][i]:
             jacs[im] += 1
         else:
             jacs[im] += 0
@@ -87,7 +92,7 @@ else:
     for im in jacs:
         jacs[im] = jacs[im] / num_perm
         print('Jaccard similarity of minhash for the original pic and the {} pic is calculated: \n {}'.format(im, jacs[im]))
-tim['minhashing'] = time.time() - t1
+tim['jacard_similarity'] = time.time() - t1
 
 print('===================================')
 
@@ -95,21 +100,21 @@ print('===================================')
 ######################################################
 # Calculate simhash
 ######################################################
-t1 = time.time()
 
+t1 = time.time()
 from simhash import *
 k = 50
 hs = reference_gen(IMAGE_SHAPE[0] * IMAGE_SHAPE[1], k)
-
 pss = {}
 sim_hashs = {}
 for im in ims_single:
     pss[im] = k_simhash(list(ims_single[im].flatten()), hs)
-
+tim['simhashing_table'] = time.time() - t1
+t1 = time.time()
 for im in pss:
     sim_hashs[im] = sim_dis(pss['original'], pss[im])
     print(f"SimHash similarity for the original pic and the {im} pic is calculated:\n", sim_hashs[im])
-tim['simhashing'] = time.time() - t1
+tim['simhashing_similarity'] = time.time() - t1
 
 print('===================================')
 
