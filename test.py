@@ -1,3 +1,4 @@
+
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -10,11 +11,11 @@ IMAGE_CHANNELS = 3
 IMAGE_MODE = cv2.IMREAD_UNCHANGED
 W = 5
 
-images = {'original': '11.jpg',
-          'test': '22.jpg',
-          'dummy_1': '44.jpg',
-          'dummy_2': '55.jpg',
-          'dummy_3': '33.jpg',
+images = {'original': 'images/11.jpg',
+          'test': 'images/22.jpg',
+          'dummy_1': 'images/44.jpg',
+          'dummy_2': 'images/55.jpg',
+          'dummy_3': 'images/33.jpg',
           }
 
 
@@ -23,7 +24,7 @@ tim = {'reading_data': -1, 'coverting_image': -1, 'minhashing_table': -1,
 
 
 ######################################################
-# Reading Image
+# Reading Image as RGB mode
 ######################################################
 
 def reading_image(images, tim):
@@ -54,13 +55,19 @@ def convert_image(im):
 def convert_images(ims, tim):
     t1 = time.time()
     ims_single = {}
+    color_nums = {}
     for im in ims:
         ims_single[im] = convert_image(ims[im])
+        color_nums[im] = len(np.unique(ims_single[im]))
     tim['coverting_image'] = time.time() - t1
-    return ims_single
+    return ims_single, color_nums
 
 
-ims_single = convert_images(ims_rgb, tim)
+ims_single, color_nums = convert_images(ims_rgb, tim)
+for item in color_nums:
+    print('The number of colors of {} is : {}'.format(item, color_nums[item]))
+
+print('======================================================================')
 
 
 ######################################################
