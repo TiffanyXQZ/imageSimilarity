@@ -39,7 +39,7 @@ def p2num_2d(p_2d, w, h):
 def p2num_3d(p_3d, w, h, l):
     r, g, b = int(p_3d[0] / w), int(p_3d[1] / h), int(p_3d[2] / l)
     x = int(255 / w)
-    s = r + g * x + b * x ^ 2
+    s = r + g * x + b * x * x
 
     return s
 

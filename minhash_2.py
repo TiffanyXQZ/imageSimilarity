@@ -1,5 +1,4 @@
-# _prime = 10007  # use this if run test.py
-_prime = 13 # use this if run color_test.py
+_prime = 1009  # 2147483647 # this is the prime number bigger than _max_hash
 _max_hash = (1 << 64) - 1
 
 num_perm = 3  # the length of the signature
