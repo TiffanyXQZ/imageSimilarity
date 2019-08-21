@@ -66,16 +66,21 @@ print('======================================================================')
 for im in color_counts:
     bar(im, color_counts[im])  # histogram of color counts
 
+n = 20
 sorted_counts = sort_dicts(color_counts)
 top_n_counts = top_dics(color_counts, 20)
-print(len(top_n_counts))
 for im in top_n_counts:
     name = '{} with top {} counts'.format(im, n)
     bar(name, top_n_counts[im])  # histogram of color counts
 
 sorted_freqs = freq(sorted_counts, ims_hash)
-top_n = top_dics(sorted_freqs, 10)
+top_n_freqs = top_dics(sorted_freqs, n)
+print('Top {} colors with their proportions of each pic'.format(n))
+for im in top_n_freqs:
+    import pprint
+    print('======', im)
+    pp = pprint.PrettyPrinter()
+    pp.pprint(top_n_freqs[im])
 
-for im in top_n:
-    print('======\n', im)
-    print(top_n[im].keys())
+    name = '{} with top {} color frequency'.format(im, n)
+    bar(name, top_n_freqs[im])  # histogram of color counts
