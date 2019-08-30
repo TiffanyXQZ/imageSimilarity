@@ -1,5 +1,4 @@
 from utils import *
-
 import numpy as np
 import cv2
 import time
@@ -9,7 +8,7 @@ import time
 # Constants
 ######################################################
 
-RESIZE_RATIO = (0.1, 0.1)
+RESIZE_RATIO = (1, 1)
 
 
 ######################################################

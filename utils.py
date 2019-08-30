@@ -7,7 +7,7 @@ import time
 # Constants
 ######################################################
 
-RESIZE_RATIO = (0.1, 0.1)
+RESIZE_RATIO = (1, 1)
 W = 25.5  # This means total 1000 colors. 10*10*10
 IMAGE_MODE = cv2.IMREAD_UNCHANGED
 
